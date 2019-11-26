@@ -51,4 +51,28 @@ class SwiftnotesTests : AbstractSwiftnotesTest() {
         }
 
     }
+
+    @Test
+    @DisplayName("Проверка пунктов меню")
+    fun checkMenuInfo() {
+        rule.launchActivity()
+        step("Открываем и проверяем меню на главном экране") {
+            onView(allOf(withContentDescription("More options"), isDescendantOfA(withId(R.id.toolbarMain)))).perform(click())
+            onView(withText("Backup notes")).check(matches(isEnabled()))
+            onView(withText("Restore notes")).check(matches(isEnabled()))
+            onView(withText("Rate app")).check(matches(isEnabled()))
+        }
+        step("Переходим на экран редактирования") {
+            pressBack()
+            onView(withId(R.id.newNote)).perform(click())
+        }
+        step("Открываем и проверяем меню на экране редактирования") {
+            onView(allOf(withContentDescription("More options"), isDescendantOfA(withId(R.id.toolbarEdit)))).perform(click())
+            onView(withText("Note font size")).check(matches(isEnabled()))
+            onView(withText("Hide note body in list")).check(matches(isEnabled()))
+            deviceScreenshot("page_display")
+        }
+
+
+    }
 }
