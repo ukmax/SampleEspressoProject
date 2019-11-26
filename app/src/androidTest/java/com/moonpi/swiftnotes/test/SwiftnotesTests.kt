@@ -8,6 +8,7 @@ import android.support.test.espresso.matcher.ViewMatchers.*
 import android.support.test.rule.ActivityTestRule
 import android.support.test.runner.AndroidJUnit4
 import android.support.v7.widget.AppCompatImageButton
+import android.widget.ImageButton
 import com.moonpi.swiftnotes.MainActivity
 import com.moonpi.swiftnotes.R
 import com.moonpi.swiftnotes.rule.SwiftnotesRule
@@ -38,16 +39,14 @@ class SwiftnotesTests : AbstractSwiftnotesTest() {
             deviceScreenshot("page_display")
         }
         step("Проверяем окно Save changes") {
-            pressBack()
-            pressBack()
-//            onView(withClassName(instanceOf(android.widget.ImageButton())))
-            onView(allOf(withText("Yes"), isClickable()))
-            onView(allOf(withText("No"), isClickable()))
+            onView(withClassName(endsWith("AppCompatImageButton"))).perform(click())
+            onView(allOf(withText("Yes"), isClickable())).check(matches(withId(android.R.id.button1)))
+            onView(allOf(withText("No"), isClickable())).check(matches(withId(android.R.id.button2)))
             onView(withText("No")).perform(click())
             deviceScreenshot("page_display")
         }
         step("Проверяем отображение главной страницы") {
-            onView(allOf(withText("Swiftnotes"), isDisplayed()))
+            onView(allOf(withText("Swiftnotes"), isDisplayed())).check(matches(withParent(withId(R.id.toolbarMain))))
             deviceScreenshot("page_display")
         }
 
