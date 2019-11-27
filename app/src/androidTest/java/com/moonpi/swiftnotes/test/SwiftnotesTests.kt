@@ -5,20 +5,17 @@ import android.support.test.espresso.Espresso.pressBack
 import android.support.test.espresso.action.ViewActions.click
 import android.support.test.espresso.assertion.ViewAssertions.matches
 import android.support.test.espresso.matcher.ViewMatchers.*
-import android.support.test.rule.ActivityTestRule
 import android.support.test.runner.AndroidJUnit4
-import android.support.v7.widget.AppCompatImageButton
-import android.widget.ImageButton
 import com.moonpi.swiftnotes.MainActivity
 import com.moonpi.swiftnotes.R
 import com.moonpi.swiftnotes.rule.SwiftnotesRule
+import com.moonpi.swiftnotes.screens.*
 import org.hamcrest.CoreMatchers.*
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import ru.tinkoff.allure.android.deviceScreenshot
 import ru.tinkoff.allure.annotations.DisplayName
-import ru.tinkoff.allure.step
 
 
 @RunWith(AndroidJUnit4::class)
@@ -32,23 +29,15 @@ class SwiftnotesTests : AbstractSwiftnotesTest() {
     @DisplayName("Проверка экрана создания заметки")
     fun checkNewNoteInfo() {
         rule.launchActivity()
-        step("Проверяем отображение страницы создания заметки") {
-            onView(withId(R.id.newNote)).perform(click())
-            onView(allOf(withId(R.id.titleEdit), isDisplayed())).check(matches(withHint("Title")))
-            onView(allOf(withId(R.id.bodyEdit), isDisplayed())).check(matches(withHint("Note")))
-            deviceScreenshot("page_display")
-        }
-        step("Проверяем окно Save changes") {
-            onView(withClassName(endsWith("AppCompatImageButton"))).perform(click())
-            onView(allOf(withText("Yes"), isClickable())).check(matches(withId(android.R.id.button1)))
-            onView(allOf(withText("No"), isClickable())).check(matches(withId(android.R.id.button2)))
-            onView(withText("No")).perform(click())
-            deviceScreenshot("page_display")
-        }
-        step("Проверяем отображение главной страницы") {
-            onView(allOf(withText("Swiftnotes"), isDisplayed())).check(matches(withParent(withId(R.id.toolbarMain))))
-            deviceScreenshot("page_display")
-        }
+
+        MainScreen.clickNewNoteButton()
+        EditNoteScreen.checkTitle()
+        EditNoteScreen.checkTextHint()
+        EditNoteScreen.clickBackToMainScreenButton()
+        SaveChangesPopup.checkYesButton()
+        SaveChangesPopup.checkNoButton()
+        SaveChangesPopup.clickNoButton()
+        MainScreen.checkMainScreenTitle()
 
     }
 
@@ -56,22 +45,18 @@ class SwiftnotesTests : AbstractSwiftnotesTest() {
     @DisplayName("Проверка пунктов меню")
     fun checkMenuInfo() {
         rule.launchActivity()
-        step("Открываем и проверяем меню на главном экране") {
-            onView(allOf(withContentDescription("More options"), isDescendantOfA(withId(R.id.toolbarMain)))).perform(click())
-            onView(withText("Backup notes")).check(matches(isEnabled()))
-            onView(withText("Restore notes")).check(matches(isEnabled()))
-            onView(withText("Rate app")).check(matches(isEnabled()))
-        }
-        step("Переходим на экран редактирования") {
-            pressBack()
-            onView(withId(R.id.newNote)).perform(click())
-        }
-        step("Открываем и проверяем меню на экране редактирования") {
-            onView(allOf(withContentDescription("More options"), isDescendantOfA(withId(R.id.toolbarEdit)))).perform(click())
-            onView(withText("Note font size")).check(matches(isEnabled()))
-            onView(withText("Hide note body in list")).check(matches(isEnabled()))
-            deviceScreenshot("page_display")
-        }
+
+        MainScreen.clickMainScreenMenu()
+        MainScreenMenu.checkBackupNotesButton()
+        MainScreenMenu.checkRestoreNotesButton()
+        MainScreenMenu.checkRateAppButton()
+        pressBack()
+        MainScreen.clickNewNoteButton()
+        EditNoteScreen.clickEditScreenMenu()
+        EditNoteScreenMenu.checkNoteFontSizeButton()
+        EditNoteScreenMenu.checkHideNoteBodyButton()
+
+        deviceScreenshot("page_display")
 
 
     }
