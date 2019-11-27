@@ -8,12 +8,11 @@ import com.moonpi.swiftnotes.screens.*
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import ru.tinkoff.allure.android.deviceScreenshot
 import ru.tinkoff.allure.annotations.DisplayName
 
 
 @RunWith(AndroidJUnit4::class)
-@DisplayName("Проверка экрана создания заметки")
+@DisplayName("Задание 1 и 3")
 class SwiftnotesTests : AbstractSwiftnotesTest() {
 
     @get:Rule
@@ -23,7 +22,6 @@ class SwiftnotesTests : AbstractSwiftnotesTest() {
     @DisplayName("Проверка экрана создания заметки")
     fun checkNewNoteInfo() {
         rule.launchActivity()
-
         MainScreen.clickNewNoteButton()
         EditNoteScreen.checkTitle()
         EditNoteScreen.checkTextHint()
@@ -32,14 +30,12 @@ class SwiftnotesTests : AbstractSwiftnotesTest() {
         SaveChangesPopup.checkNoButton()
         SaveChangesPopup.clickNoButton()
         MainScreen.checkMainScreenTitle()
-
     }
 
     @Test
     @DisplayName("Проверка пунктов меню")
     fun checkMenuInfo() {
         rule.launchActivity()
-
         MainScreen.clickMainScreenMenu()
         MainScreenMenu.checkBackupNotesButton()
         MainScreenMenu.checkRestoreNotesButton()
@@ -49,9 +45,5 @@ class SwiftnotesTests : AbstractSwiftnotesTest() {
         EditNoteScreen.clickEditScreenMenu()
         EditNoteScreenMenu.checkNoteFontSizeButton()
         EditNoteScreenMenu.checkHideNoteBodyButton()
-
-        deviceScreenshot("page_display")
-
-
     }
 }
