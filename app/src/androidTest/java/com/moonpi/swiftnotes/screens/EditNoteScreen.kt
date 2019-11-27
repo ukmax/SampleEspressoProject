@@ -1,14 +1,14 @@
 package com.moonpi.swiftnotes.screens
 
 import android.support.test.espresso.Espresso.onView
-import android.support.test.espresso.action.ViewActions
 import android.support.test.espresso.action.ViewActions.click
 import android.support.test.espresso.assertion.ViewAssertions.matches
 import android.support.test.espresso.matcher.ViewMatchers.*
 import com.moonpi.swiftnotes.R
-import org.hamcrest.CoreMatchers
 import org.hamcrest.CoreMatchers.allOf
 import org.hamcrest.CoreMatchers.endsWith
+import ru.tinkoff.allure.android.deviceScreenshot
+import ru.tinkoff.allure.step
 
 class EditNoteScreen {
 
@@ -17,20 +17,33 @@ class EditNoteScreen {
         private val textHintSelector = onView(allOf(withId(R.id.bodyEdit), isDisplayed()))
         private val backToMainScreenButtonSelector = onView(withClassName(endsWith("AppCompatImageButton")))
         private val editScreenMenu = onView(allOf(withContentDescription("More options"), isDescendantOfA(withId(R.id.toolbarEdit))))
+
         fun checkTitle() {
-            titleSelector.check(matches(withHint("Title")))
+            step("Проверка хинта заголовка") {
+                titleSelector.check(matches(withHint("Title")))
+                deviceScreenshot("page_display")
+            }
         }
 
         fun checkTextHint() {
-            textHintSelector.check(matches(withHint("Note")))
+            step("Проверка хинта текста") {
+                textHintSelector.check(matches(withHint("Note")))
+                deviceScreenshot("page_display")
+            }
         }
 
         fun clickBackToMainScreenButton() {
-            backToMainScreenButtonSelector.perform(click())
+            step("Нажание кнопки Назад") {
+                backToMainScreenButtonSelector.perform(click())
+                deviceScreenshot("page_display")
+            }
         }
 
-        fun clickEditScreenMenu(){
-            editScreenMenu.perform(click())
+        fun clickEditScreenMenu() {
+            step("Нажатие на кнопку меню на экране редактирования") {
+                editScreenMenu.perform(click())
+                deviceScreenshot("page_display")
+            }
         }
     }
 }

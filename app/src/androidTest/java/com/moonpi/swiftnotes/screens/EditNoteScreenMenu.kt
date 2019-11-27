@@ -1,12 +1,10 @@
 package com.moonpi.swiftnotes.screens
 
 import android.support.test.espresso.Espresso.onView
-import android.support.test.espresso.action.ViewActions
-import android.support.test.espresso.action.ViewActions.click
 import android.support.test.espresso.assertion.ViewAssertions.matches
 import android.support.test.espresso.matcher.ViewMatchers.*
-import com.moonpi.swiftnotes.R
-import org.hamcrest.CoreMatchers.allOf
+import ru.tinkoff.allure.android.deviceScreenshot
+import ru.tinkoff.allure.step
 
 class EditNoteScreenMenu {
 
@@ -14,12 +12,21 @@ class EditNoteScreenMenu {
         private val noteFontSizeButton = onView(withText("Note font size"))
         private val hideNoteBodyButton = onView(withText("Hide note body in list"))
 
+
         fun checkNoteFontSizeButton() {
-            noteFontSizeButton.check(matches(isEnabled()))
+            step("Проверка наличия кнопки Note font size"){
+                noteFontSizeButton.check(matches(isEnabled()))
+                deviceScreenshot("page_display")
+            }
+
         }
 
         fun checkHideNoteBodyButton() {
-            hideNoteBodyButton.check(matches(isEnabled()))
+            step("Проверка наличия кнопки Hide note body in list"){
+                hideNoteBodyButton.check(matches(isEnabled()))
+                deviceScreenshot("page_display")
+            }
+
         }
 
 

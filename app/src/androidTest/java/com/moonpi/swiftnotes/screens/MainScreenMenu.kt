@@ -1,13 +1,10 @@
 package com.moonpi.swiftnotes.screens
 
-
 import android.support.test.espresso.Espresso.onView
-import android.support.test.espresso.action.ViewActions
-import android.support.test.espresso.action.ViewActions.click
 import android.support.test.espresso.assertion.ViewAssertions.matches
 import android.support.test.espresso.matcher.ViewMatchers.*
-import com.moonpi.swiftnotes.R
-import org.hamcrest.CoreMatchers.allOf
+import ru.tinkoff.allure.android.deviceScreenshot
+import ru.tinkoff.allure.step
 
 class MainScreenMenu {
 
@@ -18,18 +15,26 @@ class MainScreenMenu {
 
 
         fun checkBackupNotesButton() {
-            backupNotesButton.check(matches(isEnabled()))
+            step("Проверка наличия кнопки Backup notes") {
+                backupNotesButton.check(matches(isEnabled()))
+                deviceScreenshot("page_display")
+            }
         }
 
         fun checkRestoreNotesButton() {
-            restoreNotesButton.check(matches(isEnabled()))
+            step("Проверка наличия кнопки Restore notes") {
+                restoreNotesButton.check(matches(isEnabled()))
+                deviceScreenshot("page_display")
+            }
         }
 
 
         fun checkRateAppButton() {
-            rateAppButton.check(matches(isEnabled()))
+            step("Проверка наличия кнопки Rate app") {
+                rateAppButton.check(matches(isEnabled()))
+                deviceScreenshot("page_display")
+            }
+
         }
-
-
     }
 }

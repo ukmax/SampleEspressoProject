@@ -1,16 +1,10 @@
 package com.moonpi.swiftnotes.test
 
-import android.support.test.espresso.Espresso.onView
 import android.support.test.espresso.Espresso.pressBack
-import android.support.test.espresso.action.ViewActions.click
-import android.support.test.espresso.assertion.ViewAssertions.matches
-import android.support.test.espresso.matcher.ViewMatchers.*
 import android.support.test.runner.AndroidJUnit4
 import com.moonpi.swiftnotes.MainActivity
-import com.moonpi.swiftnotes.R
 import com.moonpi.swiftnotes.rule.SwiftnotesRule
 import com.moonpi.swiftnotes.screens.*
-import org.hamcrest.CoreMatchers.*
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
